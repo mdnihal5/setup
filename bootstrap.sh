@@ -10,15 +10,15 @@
 set -euo pipefail
 
 REPO_DIR="$HOME/Personal/machine-setup"
-REMOTE="git@github-personal:mdnihal5/machine-setup.git"
+REMOTE="git@github-personal:mdnihal5/setup.git"
 
 if [ ! -d "$REPO_DIR/.git" ]; then
-  echo "==> Cloning machine-setup to $REPO_DIR"
+  echo "==> Cloning setup to $REPO_DIR"
   mkdir -p "$(dirname "$REPO_DIR")"
   git clone "$REMOTE" "$REPO_DIR" || {
     echo "SSH clone failed (no github-personal key on this machine yet?)." >&2
     echo "Falling back to HTTPS — you'll only be able to pull, not push, until the SSH alias is set up (see git/ssh-config.example)." >&2
-    git clone "https://github.com/mdnihal5/machine-setup.git" "$REPO_DIR"
+    git clone "https://github.com/mdnihal5/setup.git" "$REPO_DIR"
   }
 else
   echo "==> Pulling latest"

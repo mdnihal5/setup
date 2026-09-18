@@ -1,14 +1,15 @@
-# machine-setup
+# setup
 
 One repo, one command, any machine (Linux or macOS): the full dev setup —
 Zed, vim/competitive-programming, git identity — instead of it being
 scattered across per-tool folders in other repos and going stale because
-nothing forces a re-sync.
+nothing forces a re-sync. Cloned locally as `machine-setup/` (the local
+folder name doesn't need to match the repo name).
 
 ## Use — one command
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/mdnihal5/machine-setup/main/bootstrap.sh | bash
+curl -fsSL https://raw.githubusercontent.com/mdnihal5/setup/main/bootstrap.sh | bash
 ```
 
 Or, if this repo is already cloned somewhere:
