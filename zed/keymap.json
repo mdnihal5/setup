@@ -1,0 +1,45 @@
+// Zed keymap.
+//
+// vim_mode is OFF, so Zed's default keymap + the VSCode overlay already give
+// you almost everything. This file is therefore deliberately tiny: it contains
+// ONLY bindings that differ from the defaults and that I have checked are not
+// already bound to something more useful.
+//
+// The earlier vim-workaround layers (space leader, F-keys) are gone. They were
+// only needed because vim mode claimed the ctrl-* keys, and the F-keys were
+// actively stealing the debugger bindings (f4/f5/f6/f7/f9).
+//
+// Before adding anything here, check the default first:
+//   ctrl-shift-p -> "zed: open default keymap"
+[
+  {
+    // Back / forward through edit locations.
+    // Zed's default is ctrl-alt-- and ctrl-alt-_ , which are awkward to hit.
+    // alt-left/right is the browser + JetBrains convention. The only default
+    // on these keys is an internal edit-prediction debug action in a different
+    // context, so nothing useful is lost.
+    "context": "Pane",
+    "bindings": {
+      "alt-left": "pane::GoBack",
+      "alt-right": "pane::GoForward"
+    }
+  },
+  {
+    // VS Code parity for line duplication vs. multi-cursor.
+    //
+    //   VS Code (Linux)   shift-alt-down = Copy Line Down
+    //                     ctrl-alt-down  = Add Cursor Below
+    //   Zed default       shift-alt-down = Add Selection Below   <- swapped
+    //                     ctrl-alt-shift-down = Duplicate Line
+    //
+    // These four restore VS Code's meaning. Delete this block to go back to
+    // Zed's arrangement.
+    "context": "Editor",
+    "bindings": {
+      "shift-alt-down": "editor::DuplicateLineDown",
+      "shift-alt-up": "editor::DuplicateLineUp",
+      "ctrl-alt-down": "editor::AddSelectionBelow",
+      "ctrl-alt-up": "editor::AddSelectionAbove"
+    }
+  }
+]

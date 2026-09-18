@@ -1,0 +1,250 @@
+// Zed settings — tuned to match the VS Code setup in ~/.config/Code/User/settings.json
+// (Ayu Mirage, flattened to a single #2c3348 ground, JetBrains Mono, brightened UI text).
+//
+// Docs: https://zed.dev/docs/configuring-zed
+// See every default:  ctrl-shift-p -> "zed: open default settings"
+{
+  // ---------------------------------------------------------------- identity
+  "cli_default_open_behavior": "existing_window",
+  "base_keymap": "VSCode",
+  "vim_mode": false, // your existing setting, left alone — see the keymap notes
+
+  // Shows which repo + branch a window belongs to right in the OS titlebar/
+  // taskbar — useful with your multi-window, multi-hotfix-branch workflow
+  // (1.20.1+; no effect until Zed is updated and restarted).
+  "window_title_format": "${projectName}${separator}${branch}${separator}${fileName}",
+  "window_title_separator": " — ",
+  "session": { "trust_all_worktrees": true },
+  "agent_servers": { "claude-acp": { "type": "registry" } },
+
+  // Installed automatically on next launch — no need to visit the extensions UI.
+  //
+  // NOT listed here because Zed has them BUILT IN — installing an extension
+  // would be redundant:  Go/gopls, TypeScript/vtsls, ESLint, Prettier,
+  // Tailwind, CSS, JSON, YAML, Python, Rust, C/C++, Bash, and git blame
+  // (your GitLens replacement). That covers 6 of the 10 extensions you have
+  // in VS Code.
+  "auto_install_extensions": {
+    "html": true,
+    "vscode-icons": true, // the same icon set you use in VS Code
+
+    // languages Zed does not bundle, that you actually use
+    "astro": true, // blog_site is Astro — this is the real gap
+    "dockerfile": true,
+    "docker-compose": true,
+    "sql": true,
+    "toml": true,
+    "make": true,
+    "env": true,
+    "nginx": true,
+
+    // quality-of-life
+    "git-firefly": true, // .gitignore/.gitconfig/COMMIT_EDITMSG highlighting
+    "log": true, // colourises .log files — good with your figure gates
+    "http": true, // .http request files: a REST client inside the editor
+    "markdownlint": true, // you write a lot of markdown
+    "rainbow-csv": true,
+    "mermaid": true,
+
+    // opt-in, remove if noisy
+    "golangci-lint": true, // needs golangci-lint on PATH
+    "postgres-language-server": true // real SQL LSP, not just highlighting
+  },
+
+  // ------------------------------------------------------------------- look
+  // "Ayu Mirage Flat" is a local theme in ~/.config/zed/themes/ — Ayu Mirage's
+  // real token colours on the #2c3348 ground you set in VS Code.
+  "theme": {
+    "mode": "system",
+    "dark": "Ayu Mirage Flat",
+    "light": "Ayu Light"
+  },
+  "icon_theme": {
+    "mode": "system",
+    "dark": "VSCode Icons for Zed (Dark)",
+    "light": "VSCode Icons for Zed (Light)"
+  },
+
+  // ------------------------------------------------------------------ fonts
+  "buffer_font_family": "JetBrains Mono",
+  "buffer_font_fallbacks": ["DejaVu Sans Mono", "monospace"],
+  "buffer_font_size": 15,
+  "buffer_font_weight": 400,
+  "buffer_font_features": { "calt": true }, // ligatures, as in VS Code
+  "buffer_line_height": "comfortable",
+  "ui_font_size": 16,
+
+  // -------------------------------------------------------- editor surface
+  "cursor_blink": false,
+  "cursor_animation": { "enabled": true }, // smooth cursor movement (1.20.1+)
+  "current_line_highlight": "all",
+  "selection_highlight": true,
+  "show_whitespaces": "selection",
+  "soft_wrap": "none",
+  "wrap_guides": [200],
+  "show_wrap_guides": true,
+  "scroll_beyond_last_line": "one_page",
+  "relative_line_numbers": false,
+  "sticky_scroll": { "enabled": true }, // VS Code's sticky headers
+  "minimap": { "show": "always", "thumb": "always", "max_width_columns": 70 },
+
+  "indent_guides": {
+    "enabled": true,
+    "coloring": "indent_aware",
+    "background_coloring": "disabled"
+  },
+
+  "gutter": {
+    "line_numbers": true,
+    "runnables": true,
+    "breakpoints": true,
+    "folds": true
+  },
+
+  "scrollbar": {
+    "show": "auto",
+    "git_diff": true,
+    "search_results": true,
+    "selected_symbol": true,
+    "diagnostics": "all"
+  },
+
+  // --------------------------------------------------------- tabs and panels
+  "tabs": {
+    "file_icons": true, // off by default in Zed, on in VS Code
+    "git_status": true, // colours modified/untracked tab labels
+    "show_diagnostics": "errors",
+    "close_position": "right"
+  },
+  "tab_bar": { "show": true, "show_nav_history_buttons": true },
+  "toolbar": { "breadcrumbs": true, "quick_actions": true, "code_actions": true },
+  "preview_tabs": { "enabled": true, "enable_preview_from_file_finder": true },
+
+  "project_panel": {
+    "dock": "left", // Zed defaults to the RIGHT; VS Code's explorer is on the left
+    "default_width": 260,
+    "file_icons": true,
+    "folder_indicator": "icon",
+    "git_status": true,
+    "auto_reveal_entries": true,
+    "auto_fold_dirs": true,
+    "indent_size": 16
+  },
+  "outline_panel": { "dock": "left" },
+  "git_panel": { "dock": "left" },
+
+  // ------------------------------------------------------------------- code
+  "format_on_save": "on",
+  "formatter": "auto",
+  "remove_trailing_whitespace_on_save": true,
+  "ensure_final_newline_on_save": true,
+  "use_autoclose": true,
+  "use_auto_surround": true,
+  "auto_indent_on_paste": true,
+  "tab_size": 2,
+  "preferred_line_length": 200,
+
+  // No .prettierrc anywhere on this machine, so format-on-save was using
+  // Prettier's built-in default (printWidth: 80) — that's the actual cause
+  // of "messed up" formatting, not just the ruler. This makes the real
+  // formatter match the 200-col ruler above.
+  "prettier": {
+    "allowed": true,
+    "options": { "printWidth": 200 }
+  },
+
+  "inlay_hints": {
+    "enabled": true, // Go and TS both benefit; override per-language below
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true,
+    "edit_debounce_ms": 700
+  },
+
+  "hover_popover_enabled": true,
+  "show_completions_on_input": true,
+  "show_completion_documentation": true,
+  "use_smartcase_search": true,
+
+  // --------------------------------------------------------------------- git
+  "git": {
+    "git_gutter": "tracked_files",
+    "inline_blame": {
+      "enabled": true, // the GitLens line you are used to
+      "delay_ms": 600,
+      "show_commit_summary": true
+    }
+  },
+
+  // ---------------------------------------------------------------- terminal
+  "terminal": {
+    "dock": "bottom",
+    "font_family": "JetBrains Mono",
+    "font_fallbacks": ["DejaVu Sans Mono", "monospace"],
+    "font_size": 14,
+    "line_height": "comfortable",
+    "copy_on_select": true,
+    "cursor_shape": "bar",
+    "blinking": "off",
+    "working_directory": "current_project_directory",
+    "default_height": 340
+  },
+
+  // ------------------------------------------------------------- per-language
+  "languages": {
+    "Go": {
+      "tab_size": 4,
+      "hard_tabs": true,
+      "format_on_save": "on",
+      "code_actions_on_format": { "source.organizeImports": true }
+    },
+    "Rust": { "tab_size": 4 },
+    "Python": { "tab_size": 4 },
+    "Markdown": { "soft_wrap": "editor_width", "format_on_save": "off" },
+    "JSON": { "tab_size": 2 },
+    "JSONC": { "tab_size": 2 },
+    "TypeScript": { "tab_size": 2 },
+    "TSX": { "tab_size": 2 },
+    "JavaScript": { "tab_size": 2 }
+  },
+
+  "lsp": {
+    "gopls": {
+      "initialization_options": {
+        "usePlaceholders": true,
+        "staticcheck": true,
+        "hints": {
+          "assignVariableTypes": true,
+          "compositeLiteralFields": true,
+          "constantValues": true,
+          "functionTypeParameters": true,
+          "parameterNames": true,
+          "rangeVariableTypes": true
+        }
+      }
+    }
+  },
+
+  // --------------------------------------------------------------- behaviour
+  "autosave": { "after_delay": { "milliseconds": 2000 } },
+  "restore_on_startup": "last_session",
+  "when_closing_with_no_tabs": "keep_window_open",
+  "confirm_quit": false,
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/node_modules",
+    "**/.next",
+    "**/dist",
+    "**/build",
+    "**/target",
+    "**/.venv",
+    "**/__pycache__",
+    "**/.DS_Store",
+    "**/coverage"
+  ],
+  "file_finder": { "include_ignored": "smart", "modal_max_width": "medium" },
+  "search": { "button": true, "search_on_type": true },
+  "status_bar": { "active_language_button": true, "cursor_position_button": true },
+  "multi_cursor_modifier": "alt", // alt-click adds a cursor, as in VS Code
+  "edit_predictions": { "provider": "none" }
+}

@@ -1,0 +1,21 @@
+# Append this block to ~/.ssh/config on a new machine — it's what makes the
+# `github-work` / `github-personal` host aliases (and gitconfig-personal's
+# `insteadOf git@github.com:` rewrite) resolve to the right identity.
+#
+# NOT committed as your real ~/.ssh/config, and the private keys themselves
+# are NEVER in this repo — generate fresh keypairs per machine
+# (ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 / ~/.ssh/id_ed25519_personal)
+# and add the *public* half to GitHub, or copy the private key over a
+# channel you trust (not git). A committed private key is a leaked key.
+
+Host github-work
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/id_ed25519
+	IdentitiesOnly yes
+
+Host github-personal
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/id_ed25519_personal
+	IdentitiesOnly yes
