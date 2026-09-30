@@ -9,9 +9,7 @@
   "base_keymap": "VSCode",
   "vim_mode": false, // your existing setting, left alone — see the keymap notes
 
-  // Shows which repo + branch a window belongs to right in the OS titlebar/
-  // taskbar — useful with your multi-window, multi-hotfix-branch workflow
-  // (1.20.1+; no effect until Zed is updated and restarted).
+  // repo/branch/file in the window title (1.20.1+)
   "window_title_format": "${projectName}${separator}${branch}${separator}${fileName}",
   "window_title_separator": " — ",
   "session": { "trust_all_worktrees": true },
@@ -156,12 +154,7 @@
   "inlay_hints": {
     "enabled": true, // Go and TS both benefit; override per-language below
     "show_type_hints": true,
-    // Off: the same info is one hover away (editor::Hover / mouse-hover),
-    // and inline it was cluttering short call sites like
-    // http.HandleFunc(pattern: ..., handler: ...) — every arg gets a label
-    // whether or not it's ambiguous. Toggle back on ad hoc with the
-    // editor::ToggleInlayHints binding in keymap.json.
-    "show_parameter_hints": false,
+    "show_parameter_hints": false, // cluttered short calls; same info via hover
     "show_other_hints": true,
     "edit_debounce_ms": 700
   },

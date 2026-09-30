@@ -42,15 +42,4 @@
       "ctrl-alt-up": "editor::AddSelectionAbove"
     }
   }
-  // A dedicated "toggle just parameter hints, leave type hints always on"
-  // keybinding was tried here and abandoned — not a keybinding-conflict
-  // problem in the end. editor::ToggleInlayHints only gates the whole
-  // inlay-hints feature on/off; re-enabling it just restores whatever the
-  // show_* settings already permit, so with show_parameter_hints: false it
-  // can only ever flicker type hints, never reveal parameter hints. Zed
-  // has no per-category toggle action and no generic "toggle this
-  // settings.json value" keybinding mechanism (verified against the
-  // settings reference and key-bindings docs). Use hover for parameter
-  // info on demand, or flip show_parameter_hints in settings.json by hand
-  // when you specifically want it inline for a while.
 ]
