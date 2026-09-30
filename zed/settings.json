@@ -156,7 +156,12 @@
   "inlay_hints": {
     "enabled": true, // Go and TS both benefit; override per-language below
     "show_type_hints": true,
-    "show_parameter_hints": true,
+    // Off: the same info is one hover away (editor::Hover / mouse-hover),
+    // and inline it was cluttering short call sites like
+    // http.HandleFunc(pattern: ..., handler: ...) — every arg gets a label
+    // whether or not it's ambiguous. Toggle back on ad hoc with the
+    // editor::ToggleInlayHints binding in keymap.json.
+    "show_parameter_hints": false,
     "show_other_hints": true,
     "edit_debounce_ms": 700
   },

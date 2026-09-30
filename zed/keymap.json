@@ -41,5 +41,15 @@
       "ctrl-alt-down": "editor::AddSelectionBelow",
       "ctrl-alt-up": "editor::AddSelectionAbove"
     }
+  },
+  {
+    // Flip ALL inlay hints (type + parameter + other) on/off on demand.
+    // Not VS Code parity — VS Code has no fixed default for this either,
+    // it only offers hold-Ctrl+Alt-to-reveal. Change the key if it clashes
+    // with anything on your layout; nothing else in this file uses it.
+    "context": "Editor",
+    "bindings": {
+      "ctrl-alt-i": "editor::ToggleInlayHints"
+    }
   }
 ]
