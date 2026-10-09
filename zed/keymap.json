@@ -41,5 +41,17 @@
       "ctrl-alt-down": "editor::AddSelectionBelow",
       "ctrl-alt-up": "editor::AddSelectionAbove"
     }
+  },
+  {
+    // Zed's default keymap binds ctrl-s to workspace::Save at the Workspace
+    // context, and the Terminal context doesn't override it — so it steals
+    // ctrl-s from any terminal subprocess (e.g. Claude Code's ctrl+x ctrl+s
+    // "send queued message now" chord dies here: the ctrl-s never reaches
+    // the shell, so the chord times out after 3s). Nothing is ever saved
+    // inside the terminal panel, so unbind it there and let it pass through.
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-s": null
+    }
   }
 ]

@@ -5,6 +5,7 @@
 // See every default:  ctrl-shift-p -> "zed: open default settings"
 {
   // ---------------------------------------------------------------- identity
+  "disable_ai": true,
   "cli_default_open_behavior": "existing_window",
   "base_keymap": "VSCode",
   "vim_mode": false, // your existing setting, left alone — see the keymap notes
@@ -82,7 +83,7 @@
   "wrap_guides": [200],
   "show_wrap_guides": true,
   "scroll_beyond_last_line": "one_page",
-  "relative_line_numbers": false,
+  "relative_line_numbers": "disabled",
   "sticky_scroll": { "enabled": true }, // VS Code's sticky headers
   "minimap": { "show": "always", "thumb": "always", "max_width_columns": 70 },
 
@@ -139,7 +140,7 @@
   "use_autoclose": true,
   "use_auto_surround": true,
   "auto_indent_on_paste": true,
-  "tab_size": 2,
+  "tab_size": 4,
   "preferred_line_length": 200,
 
   // No .prettierrc anywhere on this machine, so format-on-save was using
@@ -209,7 +210,7 @@
   "lsp": {
     "gopls": {
       "initialization_options": {
-        "usePlaceholders": true,
+        "usePlaceholders": false, // disabled 2026-10-07: left `a ...any` as literal, visible text in the buffer after accepting a completion instead of just opening empty parens with the cursor inside
         "staticcheck": true,
         "hints": {
           "assignVariableTypes": true,
@@ -222,8 +223,26 @@
       }
     },
     "markdownlint": {
-      "settings": {
-        "config": { "MD013": false } // rules must nest under config, or Zed silently ignores them
+      // Must be initialization_options, not settings: the bundled markdownlint-lsp
+      // (zed-markdownlint extension) reads its rule config directly from
+      // initializationOptions at startup — settings only answers a workspace/
+      // configuration pull that this WASM-hosted server never gets back from Zed,
+      // so rules "disabled" under settings silently kept firing (verified in-editor:
+      // MD013/MD022/MD032/MD058/MD060 all still showed after an LSP restart).
+      "initialization_options": {
+        // PLAN.md/LOG.md are working notes, not published docs — line length (MD013)
+        // was already off for that reason; MD022/MD032/MD058/MD060 are the same kind
+        // of pure whitespace/alignment nitpick (blank lines around headings/lists/
+        // tables, pipe-spacing style) and fire constantly on fast note-taking.
+        // MD056 (table column count) is left on — it caught a real ambiguity
+        // (a literal `||` inside a table cell), not a style complaint.
+        "config": {
+          "MD013": false,
+          "MD022": false,
+          "MD032": false,
+          "MD058": false,
+          "MD060": false
+        }
       }
     }
   },
